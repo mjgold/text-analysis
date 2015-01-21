@@ -1,10 +1,3 @@
-# This is the base code for v0.1 of our Ruby text analyzer.
-# Visit https://github.com/codeunion/text-analysis/wiki to see what to do.
-#
-# Send an email to your cohort mailing list if you have any questions
-# or you're stuck!  These comments are here to help you, but please delete them
-# as you go along. You wouldn't normally have such heavily-commented code.
-
 # Method name: item_counts
 # Input:   An arbitrary array
 #
@@ -35,16 +28,20 @@ end
 
 def count_and_print(array)
 	counts = item_counts(array)
+	
 	puts "Counts for #{counts}:"
 	counts.each do |item, count|
 		puts "#{item}  #{count}"
 	end 
 end
 
-def chars_in_str(string)
-	char_array = string.chars
+def sanitize(string)
+	string.downcase
 end
 
+def chars_in_str(string)
+	char_array = sanitize(string).chars
+end
 
 # "p" prints something to the screen in a way that's friendlier
 # for debugging purposes than print or puts.
@@ -65,7 +62,11 @@ end
 
 # p chars_in_str("a") == ["a"]
 # p chars_in_str("ab") == ["a", "b"]
-# p chars_in_str("Mr.mark123") == %w[M r . m a r k 1 2 3]
-# p chars_in_str("Jesus Christ") == ['J', 'e', 's', 'u', 's', ' ', 'C', 'h', 'r', 'i', 's', 't']
+# p chars_in_str("Mr.mark123") == %w[m r . m a r k 1 2 3]
+# p chars_in_str("Jesus Christ") == ['j', 'e', 's', 'u', 's', ' ', 'c', 'h', 'r', 'i', 's', 't']
 
-p count_and_print(chars_in_str("Hello there.")) == {"H"=>1, "e"=>3, "l"=>2, "o"=>1, " "=>1, "t"=>1, "h"=>1, "r"=>1, "."=>1}
+p item_counts(chars_in_str("Hello There Theo.")) == {"h"=>3, "e"=>4, "l"=>2, "o"=>2, " "=>2, "t"=>2, "r"=>1, "."=>1}
+
+# p sanitize("This is a sentence.")        == "this is a sentence."
+# p sanitize("WHY AM I YELLING?")          == "why am i yelling?"
+# p sanitize("HEY: ThIs Is hArD tO rEaD!") == "hey: this is hard to read!"
