@@ -24,16 +24,21 @@
 # in the input array.
 
 def item_counts(array)
-  counts = {} # Initialize counts to an empty Hash
+  counts = Hash.new(0) # Initialize counts to an empty Hash
 
   array.each do |item|
-    # Add code here to modify the "counts" hash accordingly
-    # You'll need to handle two cases:
-    #   1. The first time we've seen a particular item in the array
-    #   2. The second-or-later time we've seen a particular item in the array
+  	counts[item] += 1 
   end
 
   counts # This returns the "counts" hash
+end
+
+def count_and_print(array)
+	counts = item_counts(array)
+	puts "Counts for #{counts}:"
+	counts.each do |item, count|
+		puts "#{item} - #{count}"
+	end 
 end
 
 # "p" prints something to the screen in a way that's friendlier
@@ -45,6 +50,14 @@ p item_counts([]) == {}
 p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
 p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
 p item_counts(["a","a","A","A"]) == {"a" => 2, "A" => 2}
+
+count_and_print([1,2,1,2,1]) == {1 => 3, 2 => 2}
+count_and_print(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
+count_and_print([]) == {}
+count_and_print(["hi", "hi", "hi"]) == {"hi" => 3}
+count_and_print([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
+count_and_print(["a","a","A","A"]) == {"a" => 2, "A" => 2}
+
 
 # Each of the lines above will print out "true" or "false" and collectively
 # act as a sanity check.  Remember that conceptually "x == y"
