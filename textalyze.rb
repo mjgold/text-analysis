@@ -16,6 +16,7 @@
 # In short, item_counts(array) tells us how many times each item appears
 # in the input array.
 
+# Returns a sorted hash of passed item counts
 def item_counts(array)
   counts = Hash.new(0) # Initialize counts to an empty Hash
 
@@ -23,38 +24,70 @@ def item_counts(array)
   	counts[item] += 1 
   end
 
-  counts # This returns the "counts" hash
+	sorted_counts_desc = counts.sort_by {|item, count| count}.reverse 
+  sorted_counts_desc # This returns the "counts" hash
 end
 
-def count_and_print(array)
-	counts = item_counts(array)
-	
-	puts "Sorted counts for #{counts}:"
-	sorted_counts_desc = counts.sort_by {|item, count| count}.reverse
+# Prints a hash of item/count pairs 
+def print_hash(hash)	
+	puts "Sorted counts for #{hash}:"
 
-	sorted_counts_desc.each do |item, count|
+	hash.each do |item, count|
 		puts "#{item}  #{count}"
 	end 
 end
 
+# Sanitizes string by downcasing
 def sanitize(string)
 	string.downcase
 end
 
-def str_to_sanitized_chars(string)
-	char_array = sanitize(string).chars
-end
-
-def count_string_chars(string)
+# Counts and prints characters in passed string
+def count_and_print_chars(string)
 	char_array = str_to_sanitized_chars(string)
 	count_and_print(char_array)
 end
 
+# Returns hash of character count in passed filename
 def count_file_chars(filename)
 	contents = File.read(filename)
 
 	count_string_chars(contents)
 end
+
+# Converts text file to array of characters 
+def read_file(filename)
+	contents = File.read(filename)
+end
+
+# 
+def item_frequency(array)
+	counts = item_counts(array)
+	print_hash(counts)
+
+	total_items = array.size
+	puts "Total items: #{total_items}"
+
+	frequencies = Hash.new
+
+	counts.each do |item, count| 
+	  puts "Item: #{item}, Count:  #{count}"	  
+	  frequency = count/total_items ### WHY IS THIS RETURNING 0? BOTH ARE FIXNUMS
+	  # frequency = count/(total_items.round(3)) ### STRANGELY, THIS WORKS
+		
+		# frequency = (count/total_items).round(1)
+		puts "Frequency of #{item}: #{frequency}"
+		frequencies[item] = frequency
+	end
+	# calculate total number of characters
+	# create new hash where for each key, value pair
+	#   divide value/total 
+	# print new hash
+
+	frequencies
+end
+
+
 # "p" prints something to the screen in a way that's friendlier
 # for debugging purposes than print or puts.
 
@@ -81,8 +114,13 @@ end
 
 # count_file_chars("sample_data/moby-dick.full.txt")
 
-filename = ARGV[0]
-count_file_chars(filename)
+filename = ARGV[0] 
+contents = read_file(filename) unless filename.nil?
+
+contents = sanitize(contents)
+contents_array = contents.chars
+frequencies = item_frequency(contents_array)
+print_hash(frequencies)
 
 # p sanitize("This is a sentence.")        == "this is a sentence."
 # p sanitize("WHY AM I YELLING?")          == "why am i yelling?"
