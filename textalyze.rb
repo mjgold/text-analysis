@@ -29,8 +29,10 @@ end
 def count_and_print(array)
 	counts = item_counts(array)
 	
-	puts "Counts for #{counts}:"
-	counts.each do |item, count|
+	puts "Sorted counts for #{counts}:"
+	sorted_counts_desc = counts.sort_by {|item, count| count}.reverse
+
+	sorted_counts_desc.each do |item, count|
 		puts "#{item}  #{count}"
 	end 
 end
@@ -39,10 +41,20 @@ def sanitize(string)
 	string.downcase
 end
 
-def chars_in_str(string)
+def str_to_sanitized_chars(string)
 	char_array = sanitize(string).chars
 end
 
+def count_string_chars(string)
+	char_array = str_to_sanitized_chars(string)
+	count_and_print(char_array)
+end
+
+def count_file_chars(filename)
+	contents = File.read(filename)
+
+	count_string_chars(contents)
+end
 # "p" prints something to the screen in a way that's friendlier
 # for debugging purposes than print or puts.
 
@@ -65,7 +77,12 @@ end
 # p chars_in_str("Mr.mark123") == %w[m r . m a r k 1 2 3]
 # p chars_in_str("Jesus Christ") == ['j', 'e', 's', 'u', 's', ' ', 'c', 'h', 'r', 'i', 's', 't']
 
-p item_counts(chars_in_str("Hello There Theo.")) == {"h"=>3, "e"=>4, "l"=>2, "o"=>2, " "=>2, "t"=>2, "r"=>1, "."=>1}
+# p count_string_chars("Hello There Theo.") == {"h"=>3, "e"=>4, "l"=>2, "o"=>2, " "=>2, "t"=>2, "r"=>1, "."=>1}
+
+# count_file_chars("sample_data/moby-dick.full.txt")
+
+filename = ARGV[0]
+count_file_chars(filename)
 
 # p sanitize("This is a sentence.")        == "this is a sentence."
 # p sanitize("WHY AM I YELLING?")          == "why am i yelling?"
