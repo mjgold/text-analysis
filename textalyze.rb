@@ -37,43 +37,35 @@ def count_and_print(array)
 	counts = item_counts(array)
 	puts "Counts for #{counts}:"
 	counts.each do |item, count|
-		puts "#{item} - #{count}"
+		puts "#{item}  #{count}"
 	end 
 end
+
+def chars_in_str(string)
+	char_array = string.chars
+end
+
 
 # "p" prints something to the screen in a way that's friendlier
 # for debugging purposes than print or puts.
 
-p item_counts([1,2,1,2,1]) == {1 => 3, 2 => 2}
-p item_counts(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
-p item_counts([]) == {}
-p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
-p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
-p item_counts(["a","a","A","A"]) == {"a" => 2, "A" => 2}
+# p item_counts([1,2,1,2,1]) == {1 => 3, 2 => 2}
+# p item_counts(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
+# p item_counts([]) == {}
+# p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
+# p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
+# p item_counts(["a","a","A","A"]) == {"a" => 2, "A" => 2}
 
-count_and_print([1,2,1,2,1]) == {1 => 3, 2 => 2}
-count_and_print(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
-count_and_print([]) == {}
-count_and_print(["hi", "hi", "hi"]) == {"hi" => 3}
-count_and_print([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
-count_and_print(["a","a","A","A"]) == {"a" => 2, "A" => 2}
+# count_and_print([1,2,1,2,1]) == {1 => 3, 2 => 2}
+# count_and_print(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
+# count_and_print([]) == {}
+# count_and_print(["hi", "hi", "hi"]) == {"hi" => 3}
+# count_and_print([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
+# count_and_print(["a","a","A","A"]) == {"a" => 2, "A" => 2}
 
+# p chars_in_str("a") == ["a"]
+# p chars_in_str("ab") == ["a", "b"]
+# p chars_in_str("Mr.mark123") == %w[M r . m a r k 1 2 3]
+# p chars_in_str("Jesus Christ") == ['J', 'e', 's', 'u', 's', ' ', 'C', 'h', 'r', 'i', 's', 't']
 
-# Each of the lines above will print out "true" or "false" and collectively
-# act as a sanity check.  Remember that conceptually "x == y"
-# means "are x and y equal?"
-#
-# That is, when you run the code, if any lines print out "false"
-# then you know something is off in your code.
-#
-# This does *not* mean that your code is perfect if each line
-# prints out "true.""  For example,
-#   1. We might have missed a corner case
-#   2. The code does what it should, but is conceptually confused
-#   3. Something else we haven't though of
-#
-# Remember: Option #3 is *always* possible.
-#
-# Think of these like rumble strips on the side of the road.  They're here
-# to tell you when you're veering off the road, not to guarantee you're
-# driving phenomenally. :)
+p count_and_print(chars_in_str("Hello there.")) == {"H"=>1, "e"=>3, "l"=>2, "o"=>1, " "=>1, "t"=>1, "h"=>1, "r"=>1, "."=>1}
