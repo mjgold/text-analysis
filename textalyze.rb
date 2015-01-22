@@ -18,7 +18,12 @@
 
 ### METHODS
 
-# Returns a hash of passed item counts
+# Sanitizes and returns a string by downcasing
+def sanitize(string)
+	string.downcase
+end
+
+# Takes an array of items and returns a hash of item:count pairs 
 def item_counts(array)
   counts = Hash.new(0) # Initialize counts to an empty Hash
 
@@ -38,30 +43,7 @@ def print_hash(hash)
 	end 
 end
 
-# Sanitizes string by downcasing
-def sanitize(string)
-	string.downcase
-end
-
-# Counts and prints characters in passed string
-def count_and_print_chars(string)
-	char_array = sanitize(string)
-	count_and_print_chars(char_array)
-end
-
-# Returns hash of character count in passed filename
-def count_file_chars(filename)
-	contents = File.read(filename)
-
-	count_string_chars(contents)
-end
-
-# Converts text file to array of characters 
-def read_file(filename)
-	contents = File.read(filename)
-end
-
-# 
+# Takes an array of items and returns a hash of item:frequency pairs
 def item_frequency(array)
 	counts = item_counts(array)
 
@@ -81,9 +63,9 @@ def item_frequency(array)
 	frequencies
 end
 
-# Prints a histogram of frequency values for items in an array
-def print_histogram(frequencies)
-	frequencies.each do |item, frequency|
+# Takes a hash of frequency values and prints a histogram of values
+def print_histogram(hash)
+	hash.each do |item, frequency|
 		num_asterisks = (frequency * 100).round
 		puts "#{item}: " + ("*" * num_asterisks) 
 	end
@@ -95,7 +77,7 @@ filename = ARGV[0]
 if filename.nil?
 	puts "Please send textalyze a file to analyze."
 else
-	contents = read_file(filename) unless filename.nil?
+	contents = File.read(filename)
 	contents = sanitize(contents)
 	contents_array = contents.chars
 
